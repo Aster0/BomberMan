@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sandbox.Component;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,13 +14,17 @@ namespace Sandbox.entities.bombs
 		public override void Spawn()
 		{
 			base.Spawn();
+			// Always network this entity to all clients
+			Transmit = TransmitType.Always;
 
-			
 		}
+		protected abstract float cooldown { get; set; }
+		private float currentCooldown;
 
-	
 
 		private BomberPlayer player;
+
+		private bool canBomb = false;
 
 		public BombEntity() { }
 	
@@ -28,26 +33,60 @@ namespace Sandbox.entities.bombs
 			this.player = player;
 			SetModel( modelName );
 			Scale = modelScale;
-
+			
 
 			Log.Info( "SPAWNED" );
+
+		
+
+
 		}
 
-		protected abstract float cooldown { get; set; }
+		[GameEvent.Tick.Server]
+		private void Tick()
+		{
+
+			if(currentCooldown == 0)
+				currentCooldown = cooldown;
+
+			if ( canBomb )
+			{
+				currentCooldown -= Time.Delta;
+
+				if( currentCooldown < 0 )
+				{
+					currentCooldown = cooldown;
+					canBomb = false;
+
+					Bomb();
+				}
+			}
+		}
 
 
+
+
+		
+
+
+	
 
 
 
 
 		public void UseBomb()
 		{
-			Bomb();
+			
 
 
 			this.Position = player.Position;
 			Log.Info( player.Position );
+
+
+			canBomb = true;
 			
+
+
 
 		}
 

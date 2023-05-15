@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace Sandbox.entities
 
 		private BombEntity bombEntity;
 
-
+	
 
 
 
@@ -31,8 +32,7 @@ namespace Sandbox.entities
 
 
 
-
-
+			SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, Capsule.FromHeightAndRadius( 10, 15 ) );
 
 
 		}
@@ -62,6 +62,7 @@ namespace Sandbox.entities
 
 
 
+
 			HandleMovement();
 
 			if ( Game.IsServer && Input.Pressed( "attack1" ) )
@@ -71,7 +72,11 @@ namespace Sandbox.entities
 				if(bombEntity == null)
 						bombEntity = new DefaultBomb(this);
 				bombEntity.UseBomb();
+
+			
 			}
+
+		
 
 
 		}
@@ -106,7 +111,6 @@ namespace Sandbox.entities
 			if ( movement.Length > 0 )
 				Rotation = Rotation.Lerp( Rotation, Rotation.LookAt( movement ), Time.Delta * 20f );
 
-			SetAnimParameter( "run", 1 );
 
 
 
@@ -117,13 +121,24 @@ namespace Sandbox.entities
 			// apply it to our position using MoveHelper, which handles collision
 			// detection and sliding across surfaces for us
 			MoveHelper helper = new MoveHelper( Position, Velocity );
-			helper.Trace = helper.Trace.Size( 16 );
+
+			Trace trace = helper.Trace.Size( 16 );
+			trace = trace.Ignore( this );
+
+			helper.Trace = trace;
+
+		
 
 			if ( helper.TryMove( Time.Delta ) > 0 )
 			{
 				Position = helper.Position;
 
 			}
+
+
+
+
+
 		}
 
 
