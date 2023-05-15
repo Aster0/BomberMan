@@ -61,8 +61,6 @@ namespace Sandbox.entities
 
 
 
-
-
 			HandleMovement();
 
 			if ( Game.IsServer && Input.Pressed( "attack1" ) )
@@ -71,9 +69,18 @@ namespace Sandbox.entities
 				
 				if(bombEntity == null)
 						bombEntity = new DefaultBomb(this);
+
 				bombEntity.UseBomb();
 
 			
+			}
+			else if(Game.IsServer && Input.Pressed("jump"))
+			{
+
+				Entity[] entities = new Entity[1];
+				entities[0] = this;
+
+				Game.ResetMap( entities );
 			}
 
 		

@@ -46,14 +46,16 @@ namespace Sandbox.entities.bombs
 			
 				.Size(4)
 		
-				.WithAnyTags("player", "grid-start")
+				.WithAnyTags("player", "grid")
 				.Ignore( this )
 			
 				.RunAll();
 
+			
 
 
-			for(int i = 0; i < 5; i++ )
+
+			for (int i = 0; i < 5; i++ )
 			{
 				Particles MyParticle = Particles.Create( "particles/explosion_fireball.vpcf" );
 
