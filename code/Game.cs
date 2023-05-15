@@ -37,12 +37,15 @@ public partial class MyGame : GameManager
 
 
 
+	
 
 
 
 
-		Camera.Rotation = Rotation.LookAt( new Vector3( 0f, 0, -1 ) ); 
-		Camera.Position = new Vector3( -101.3794f, -217.9602f, 3000 );
+
+
+
+		Log.Info( "Joined " + Camera.Position );
 
 		// Get all of the spawnpoints
 		var spawnpoints = Entity.All.OfType<SpawnPoint>();
@@ -70,6 +73,10 @@ public partial class MyGame : GameManager
 
 
 	}
+
+
+
+
 
 
 

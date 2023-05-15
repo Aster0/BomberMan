@@ -31,6 +31,7 @@ namespace Sandbox.entities
 			Log.Info( "Spawned " + Tags );
 
 
+	
 
 			SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, Capsule.FromHeightAndRadius( 10, 15 ) );
 
@@ -52,6 +53,14 @@ namespace Sandbox.entities
 			ViewAngles = viewAngles.Normal;
 		}
 
+
+		public override void FrameSimulate( IClient cl )
+		{
+			base.FrameSimulate( cl );
+
+			Camera.Rotation = Rotation.LookAt( new Vector3( 0f, 0, -1 ) );
+			Camera.Position = new Vector3( -101.3794f, -217.9602f, 3000 );
+		}
 
 		public override void Simulate( IClient cl )
 		{
