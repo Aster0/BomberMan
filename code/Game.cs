@@ -22,7 +22,7 @@ public partial class MyGame : GameManager
 {
 
 
-	private const float PLAYER_DEFAULT_SCALE = 3.5f;
+	private const float PLAYER_DEFAULT_SCALE = 1f;
 	public MyGame()
 	{
 		
@@ -57,8 +57,6 @@ public partial class MyGame : GameManager
 		if ( randomSpawnPoint != null )
 		{
 			var tx = randomSpawnPoint.Transform;
-			tx.Position = tx.Position + Vector3.Up * 50.0f; // raise it up
-
 
 
 			BomberPlayer player = new BomberPlayer();

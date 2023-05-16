@@ -33,8 +33,8 @@ namespace Sandbox.entities
 
 	
 
-			SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, Capsule.FromHeightAndRadius( 10, 15 ) );
-
+			SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, new Capsule(Vector3.Up*15, Vector3.Up*(72-15), 15));
+			
 
 		}
 
@@ -57,9 +57,7 @@ namespace Sandbox.entities
 		public override void FrameSimulate( IClient cl )
 		{
 			base.FrameSimulate( cl );
-
-			Camera.Rotation = Rotation.LookAt( new Vector3( 0f, 0, -1 ) );
-			Camera.Position = new Vector3( -101.3794f, -217.9602f, 3000 );
+			Gizmo.Draw.LineBBox(new BBox(Position-new Vector3(7.5f, 7.5f, 0f)+InputDirection.Normal*200*Time.Delta,Position+new Vector3(7.5f, 7.5f, 72f)+InputDirection.Normal*200*Time.Delta));
 		}
 
 		public override void Simulate( IClient cl )
@@ -136,20 +134,20 @@ namespace Sandbox.entities
 
 			// apply it to our position using MoveHelper, which handles collision
 			// detection and sliding across surfaces for us
-			MoveHelper helper = new MoveHelper( Position, Velocity );
+			//MoveHelper helper = new MoveHelper( Position, Velocity );
 
-			Trace trace = helper.Trace.Size( 16 );
-			trace = trace.Ignore( this );
+			//Trace trace = helper.Trace.Size(Position-new Vector3(7.5f, 7.5f, 0f),Position+new Vector3(7.5f, 7.5f, 72f));
+			//trace = trace.Ignore( this );
+			
+			//helper.Trace = trace;
 
-			helper.Trace = trace;
 
-		
+			//helper.TryMove( Time.Delta );
+			//if ( helper.TryMove( Time.Delta ) > 0 )
+			//{
+				Position = Position+Velocity*Time.Delta;
 
-			if ( helper.TryMove( Time.Delta ) > 0 )
-			{
-				Position = helper.Position;
-
-			}
+			//}
 
 
 
