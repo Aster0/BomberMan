@@ -19,6 +19,7 @@ namespace Sandbox.entities.bombs
 
 		}
 		protected abstract float cooldown { get; set; }
+		protected abstract int distance { get; set; }
 		private float currentCooldown;
 
 

@@ -11,7 +11,7 @@ namespace Sandbox.entities.bombs
 
 
 		protected override float cooldown { get; set; }
-
+		protected override int distance { get; set; }
 
 
 		public DefaultBomb() { }
@@ -19,6 +19,7 @@ namespace Sandbox.entities.bombs
 		public DefaultBomb(BomberPlayer player) : base(player, "models/sbox_props/watermelon/watermelon.vmdl", 3f) {
 
 			cooldown = 2;
+			distance = 4;
 
 
 
@@ -41,9 +42,9 @@ namespace Sandbox.entities.bombs
 			{
 
 			
-				var traces = Trace.Ray( Position, Position + direction * 400 )
+				var traces = Trace.Ray( Position, Position + direction * ((distance * 100) - 100) )
 
-				.Size( 4 )
+				.Size( distance - 1 )
 
 				.WithAnyTags( "player", "grid", "grid-reinforced" )
 				.Ignore( this )
@@ -56,7 +57,7 @@ namespace Sandbox.entities.bombs
 
 
 
-				int particleDistanceMultiplier = 5;
+				int particleDistanceMultiplier = distance;
 
 
 
@@ -69,7 +70,7 @@ namespace Sandbox.entities.bombs
 					{
 
 						Entity entity = trace.Entity;
-						Log.Info( trace.Entity.Tags.Has( "grid-reinforced" ) );
+					
 
 						if ( trace.Entity.Tags.Has( "grid-reinforced" ) )
 						{
