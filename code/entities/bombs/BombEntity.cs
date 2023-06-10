@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sandbox.entities.bombs
 {
-	abstract class BombEntity : AnimatedEntity 
+	abstract class BombEntity : AnimatedEntity
 	{
 
 
@@ -26,6 +26,8 @@ namespace Sandbox.entities.bombs
 
 		private bool canBomb = false;
 
+		protected readonly Vector3[] BOMB_DIRECTIONS = {new Vector3( 1, 0 ), new Vector3(0, 1), new Vector3(0, -1), new Vector3(-1, 0)};
+
 		public BombEntity() { }
 	
 		public BombEntity(BomberPlayer player, string modelName, float modelScale) {
@@ -35,7 +37,7 @@ namespace Sandbox.entities.bombs
 			Scale = modelScale;
 			
 
-			Log.Info( "SPAWNED" );
+			
 
 		
 
@@ -46,7 +48,10 @@ namespace Sandbox.entities.bombs
 		private void Tick()
 		{
 
-			if(currentCooldown == 0)
+
+
+
+			if (currentCooldown == 0)
 				currentCooldown = cooldown;
 
 			if ( canBomb )

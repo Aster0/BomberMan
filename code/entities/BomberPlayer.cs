@@ -69,7 +69,6 @@ namespace Sandbox.entities
 
 
 
-
 			HandleMovement();
 
 			if ( Game.IsServer && Input.Pressed( "attack1" ) )
