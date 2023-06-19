@@ -29,16 +29,9 @@ namespace Sandbox.entities.bombs
 		protected override void Bomb()
 		{
 
-			Log.Info( "Default Bomb" );
+		
 
-			foreach ( Vector3 direction in BOMB_DIRECTIONS )
-			{
-
-				Log.Info( "Current Direction: " + BOMB_DIRECTIONS.Length );
-			}
-
-
-				foreach (Vector3 direction in BOMB_DIRECTIONS)
+			foreach (Vector3 direction in BOMB_DIRECTIONS)
 			{
 
 			
@@ -72,10 +65,10 @@ namespace Sandbox.entities.bombs
 						Entity entity = trace.Entity;
 					
 
-						if ( trace.Entity.Tags.Has( "grid-reinforced" ) )
+						if ( entity.Tags.Has( "grid-reinforced" ) )
 						{
 
-							particleDistanceMultiplier = (int)(entity.Position - Position).Length / 80;
+							particleDistanceMultiplier = (int) (entity.Position - Position).Length / 80;
 
 
 
@@ -96,7 +89,7 @@ namespace Sandbox.entities.bombs
 				}
 
 
-				Log.Info( particleDistanceMultiplier + " PARTICLE" );
+			
 
 				for ( int i = 0; i < particleDistanceMultiplier; i++ )
 				{
@@ -108,7 +101,12 @@ namespace Sandbox.entities.bombs
 
 				}
 
+
+
 			}
+
+			OnDestroyBomb();
+			
 
 
 

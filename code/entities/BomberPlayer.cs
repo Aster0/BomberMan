@@ -5,6 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Sandbox.entities
 {
@@ -12,9 +13,20 @@ namespace Sandbox.entities
 	{
 
 
-		private BombEntity bombEntity;
 
-	
+
+		[Net]
+		public int NumberOfBombs { get; set; }
+
+
+		[Net]
+		public int NumberOfBombsSpawned { get; set; }
+
+
+
+
+
+
 
 
 
@@ -25,15 +37,14 @@ namespace Sandbox.entities
 		
 			SetModel( "models/citizen/citizen.vmdl" );
 
+			NumberOfBombs = 1; // by default 1 bomb can be spawned
 
 
 
-			Log.Info( "Spawned " + Tags );
 
 
-	
 
-			SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, Capsule.FromHeightAndRadius( 10, 15 ) );
+			SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, Capsule.FromHeightAndRadius( 20, 25 ) );
 
 
 		}
@@ -41,6 +52,7 @@ namespace Sandbox.entities
 
 		[ClientInput] public Vector3 InputDirection { get; protected set; }
 		[ClientInput] public Angles ViewAngles { get; set; }
+	
 
 		public override void BuildInput()
 		{
@@ -51,6 +63,11 @@ namespace Sandbox.entities
 			var viewAngles = ViewAngles;
 			viewAngles += look;
 			ViewAngles = viewAngles.Normal;
+
+		
+
+
+
 		}
 
 
@@ -74,21 +91,21 @@ namespace Sandbox.entities
 			if ( Game.IsServer && Input.Pressed( "attack1" ) )
 			{
 
-				
-				if(bombEntity == null)
-						bombEntity = new DefaultBomb(this);
 
-				bombEntity.UseBomb();
+				new DefaultBomb( this ).UseBomb();
 
-			
+
+
 			}
 			else if(Game.IsServer && Input.Pressed("jump"))
 			{
 
-				Entity[] entities = new Entity[1];
+				/*Entity[] entities = new Entity[1];
 				entities[0] = this;
 
-				Game.ResetMap( entities );
+				Game.ResetMap( entities );*/
+
+
 			}
 
 		

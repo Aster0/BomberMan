@@ -36,11 +36,26 @@ namespace Sandbox.entities.bombs
 			this.player = player;
 			SetModel( modelName );
 			Scale = modelScale;
-			
 
-			
 
 		
+		
+
+			if ( !(player.NumberOfBombsSpawned < player.NumberOfBombs) )
+			{
+				Log.Info( "test" + player.NumberOfBombsSpawned );
+				Delete();
+
+				return;
+			}
+
+			player.NumberOfBombsSpawned++;
+
+
+
+
+
+
 
 
 		}
@@ -86,7 +101,7 @@ namespace Sandbox.entities.bombs
 
 
 			this.Position = player.Position;
-			Log.Info( player.Position );
+		
 
 
 			canBomb = true;
@@ -96,6 +111,11 @@ namespace Sandbox.entities.bombs
 
 		}
 
+		public void OnDestroyBomb()
+		{
+			Delete();
+			player.NumberOfBombsSpawned--;
+		}
 
 		protected abstract void Bomb();
 	
