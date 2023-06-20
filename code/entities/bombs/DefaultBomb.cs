@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sandbox.entities.powerups;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -77,6 +78,9 @@ namespace Sandbox.entities.bombs
 
 
 
+
+						SpawnPowerUp( entity );
+
 						entity.Delete();
 
 
@@ -93,10 +97,10 @@ namespace Sandbox.entities.bombs
 
 				for ( int i = 0; i < particleDistanceMultiplier; i++ )
 				{
-					Particles MyParticle = Particles.Create( "particles/explosion_fireball.vpcf" );
+					Particles particle = Particles.Create( "particles/explosion_fireball.vpcf" );
 
 
-					MyParticle.SetPosition( 0, Position + direction * (i * 100) );
+					particle.SetPosition( 0, Position + direction * (i * 100) );
 
 
 				}
@@ -119,6 +123,22 @@ namespace Sandbox.entities.bombs
 
 
 
+		}
+
+
+		private void SpawnPowerUp(Entity entity)
+		{
+
+			Random random = new Random();
+			int value = random.Next( 1, 100 );
+
+			Log.Info( value );
+
+
+			if(value < 100)
+			{
+				new ExtraBombPowerUp(entity.Position);
+			}
 		}
 
 	

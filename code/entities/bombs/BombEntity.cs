@@ -14,6 +14,7 @@ namespace Sandbox.entities.bombs
 		public override void Spawn()
 		{
 			base.Spawn();
+
 			// Always network this entity to all clients
 			Transmit = TransmitType.Always;
 

@@ -1,4 +1,5 @@
 ﻿using Sandbox.entities.bombs;
+using Sandbox.entities.powerups;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -104,7 +105,19 @@ namespace Sandbox.entities
 				entities[0] = this;
 
 				Game.ResetMap( entities );*/
+				Random random = new Random();
+				int value = random.Next( 1, 100 );
 
+			
+
+
+				if ( value < 100 )
+				{
+					Log.Info( value );
+					new ExtraBombPowerUp(Position);
+				}
+
+			
 
 			}
 
